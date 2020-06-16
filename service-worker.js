@@ -6,8 +6,7 @@ const PRECACHE_URLS = [
   "index.html",
   "scripts/jquery.js",
   "scripts/render.js",
-  "styles/styles.css",
-  "/",
+  "styles/style.css",
 ];
 
 // The install handler takes care of precaching the resources we always need.
