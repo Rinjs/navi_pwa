@@ -6,9 +6,6 @@
   "display": "standalone",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
-  "background": {
-    "scripts": ["jquery.js, render.js"]
-  },
   "manifest_version": 2,
   "version": "0.0.01",
 
