@@ -2,7 +2,7 @@
   "name": "SkyMonitor",
   "short_name": "SkyMonitor",
   "lang": "ru-RU",
-  "scope": "https://rinjs.github.io/navi_pwa/",
+  "start_url": "https://rinjs.github.io/navi_pwa/",
   "display": "standalone",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
