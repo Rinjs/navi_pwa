@@ -1,0 +1,111 @@
+/*Common styles*/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  vertical-align: baseline;
+  font-size: 100%;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  outline: none;
+}
+body {
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  color: #424242;
+}
+button {
+  cursor: pointer;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+a {
+  transition: 0.8s;
+}
+
+/*Styles for some elements*/
+#addToHomeScreen {
+  margin-top: 10px;
+  background: none;
+}
+#addToHomeScreen:hover {
+  color: #3f83b0;
+}
+
+/*Login page*/
+.login-page,
+.login-container {
+  height: 100%;
+}
+.login-container {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+}
+.login-logo {
+  width: 160px;
+}
+.login-form {
+  display: grid;
+  grid-template-areas: ".";
+  grid-row-gap: 15px;
+  margin-top: 25px;
+}
+.login-form__input {
+  padding: 0 0 10px 10px;
+  border-bottom: 2px solid lightgrey;
+  width: 220px;
+}
+.login-form__input:focus {
+  border-color: red;
+}
+.login-form__input:valid {
+  border-color: limegreen;
+}
+.login-form__input:valid + .login-form__label {
+  opacity: 0;
+}
+.login-form__input-container,
+.login-form__password-container {
+  position: relative;
+}
+.login-form__label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  color: gray;
+}
+.login-form__password-control {
+  position: absolute;
+  right: 10px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../images/no-view.svg") 0 0 no-repeat;
+}
+.login-form__password-control.view {
+  background: url("../images/view.svg") 0 0 no-repeat;
+}
+.login-form__button {
+  margin-top: 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+  background-color: #3f83b0;
+  border-radius: 3px;
+  height: 30px;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.login-form__button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(top, hsl(218, 43%, 71%), hsl(203, 42%, 57%) 90%);
+  background: -webkit-linear-gradient(top, hsl(218, 43%, 71%), hsl(203, 42%, 57%) 90%); /* Изменяем значения линейного градиента */
+}

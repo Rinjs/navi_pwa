@@ -104,10 +104,41 @@
     </script>
   </head>
   <body>
-    <main>
-      <button id="addToHomeScreen">ADD</button>
+    <main class="login-page" id="loginPage">
+      <div class="login-container">
+        <img class="login-logo" src="images/logob.png" alt="logo" />
+        <form class="login-form">
+          <div class="login-form__input-container">
+            <input
+              required
+              type="text"
+              id="loginInput"
+              class="login-form__input"
+            />
+            <label for="loginInput" class="login-form__label"
+              >Имя пользователя</label
+            >
+          </div>
+          <div class="login-form__password-container">
+            <input
+              required
+              type="password"
+              id="passwordInput"
+              class="login-form__input"
+            />
+            <label for="passwordInput" class="login-form__label">Пароль</label>
+            <p class="login-form__password-control" id="passwordControl"></p>
+          </div>
+
+          <button id="submitFormButton" class="login-form__button">
+            Войти
+          </button>
+        </form>
+        <button id="addToHomeScreen">Скачать на телефон</button>
+      </div>
     </main>
     <script defer src="scripts/jquery.js"></script>
     <script defer src="scripts/render.js"></script>
+    <script defer src="scripts/loginFormHandler.js"></script>
   </body>
 </html>
