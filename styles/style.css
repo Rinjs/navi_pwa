@@ -61,7 +61,6 @@ a {
   padding: 0 0 15px 15px;
   border-bottom: 1px solid lightgrey;
   width: 250px;
-  max-height: 100%;
 }
 .login-form__input:focus {
   border-color: red;
