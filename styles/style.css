@@ -37,6 +37,9 @@ a {
 #addToHomeScreen:hover {
   color: #3f83b0;
 }
+.hidden {
+  display: none !important;
+}
 
 /*Login page*/
 .login-page,
