@@ -22,7 +22,8 @@ button {
 }
 html,
 body,
-main,.login-page {
+main,
+.login-page {
   height: 100%;
   width: 100%;
 }
@@ -31,7 +32,8 @@ a {
 }
 
 /*Styles for some elements*/
-.home-page{
+.home-page {
+  position: relative;
   height: auto;
   width: 100%;
 }
@@ -56,6 +58,7 @@ a {
   width: 12px;
   height: 12px;
   background: url("../images/app icons/close.svg") 0 0 no-repeat;
+  cursor: pointer;
 }
 .auto-list__search-icon {
   position: absolute;
@@ -73,9 +76,14 @@ a {
   width: 30px;
   height: 30px;
   background: url("../images/app icons/list.svg") 0 0 no-repeat;
+  cursor: pointer;
 }
 .tinting {
-  background-color: gray;
+  position: absolute;
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 /*Login page*/
@@ -130,9 +138,11 @@ a {
   width: 20px;
   height: 20px;
   background: url("../images/app icons/no-view.svg") 0 0 no-repeat;
+  cursor: pointer;
 }
 .login-form__password-control.view {
   background: url("../images/app icons/view.svg") 0 0 no-repeat;
+  cursor: pointer;
 }
 .login-form__button {
   margin-top: 10px;
@@ -168,7 +178,7 @@ a {
   position: fixed;
   width: 100%;
   padding: 15px;
-  z-index: 1000;
+  z-index: 2000;
   grid-column-gap: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
@@ -180,6 +190,7 @@ a {
   position: relative;
   width: 17px;
   height: 12px;
+  cursor: pointer;
 }
 .nav-menu__toggle span {
   display: block;
@@ -200,7 +211,7 @@ a {
 .nav-menu__list-container {
   position: fixed;
   top: 0;
-  z-index: 2000;
+  z-index: 3000;
   background: white;
   width: 250px;
   height: 100%;
@@ -213,6 +224,26 @@ a {
   color: white;
   font-weight: bold;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.nav-menu__list {
+  margin-top: 10px;
+}
+.nav-menu__item {
+  position: relative;
+  padding: 10px 0 10px 50px;
+  cursor: pointer;
+}
+.nav-menu__item-icon {
+  position: absolute;
+  left: 13px;
+  top: 7px;
+  width: 20px;
+  height: 20px;
+  background: url("../images/app icons/home-run.svg") 0 0 no-repeat;
+}
+#logoutButton .nav-menu__item-icon{
+  background: url("../images/app icons/logout.svg") 0 0 no-repeat;
+  left: 16px;
 }
 
 /*Auto list section*/

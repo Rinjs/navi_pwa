@@ -1,7 +1,10 @@
 let loginPage = $("#loginPage");
-let homePage = $("#homePage");
-let authorized = true;
-let userLogin = "user";
+let authorized = JSON.parse(localStorage.getItem("userData")).authorized
+  ? JSON.parse(localStorage.getItem("userData")).authorized
+  : false;
+let userLogin = JSON.parse(localStorage.getItem("userData")).userName
+  ? JSON.parse(localStorage.getItem("userData")).userName
+  : "user";
 
 const generateHomePage = () => {
   const autoList = [
@@ -94,17 +97,20 @@ const generateHomePage = () => {
 
   $("main").append(
     "<div class='home-page' id='homePage'>" +
+      "<div class='tinting'></div>" +
       "<div class='nav-menu' id='navMenu'>" +
       "<div class='nav-menu__toggle'><span></span><span></span><span></span></div>" +
       "<p class='nav-menu__text' >Объекты</p>" +
       "<div class='nav-menu__list-container' id='navMenuList'>" +
       `<p class='nav-menu__list-text'>${userLogin}</p>` +
       "<ul class='nav-menu__list'>" +
-      "<li class='nav-menu__item'>" +
-      "<p class='nav-menu__item-text' id='homeAutoList'>Автомобили</p>" +
+      "<li class='nav-menu__item' id='homeAutoList'>" +
+      "<h1 class='nav-menu__item-text' >Автомобили</h1>" +
+      "<i class='nav-menu__item-icon'></i>" +
       "</li>" +
-      "<li class='nav-menu__item'>" +
-      "<p class='nav-menu__item-text' id='backToLoginPage'>Выход</p>" +
+      "<li class='nav-menu__item' id='logoutButton'>" +
+      "<h1 class='nav-menu__item-text' >Выход</h1>" +
+      "<i class='nav-menu__item-icon'></i>" +
       "</li>" +
       "</ul>" +
       "</div>" +
@@ -123,12 +129,28 @@ const generateHomePage = () => {
       "</div>"
   );
 
+  $(".tinting")
+    .addClass("hidden")
+    .click(function () {
+      $("#navMenuList").removeClass("show");
+      $(".tinting").addClass("hidden");
+    });
+
   $(".nav-menu__toggle").click(function () {
     $("#navMenuList").addClass("show");
-    $("#homePage").addClass("tinting")
+    $(".tinting").removeClass("hidden");
   });
   $("#homeAutoList").click(function () {
     $("#navMenuList").removeClass("show");
+    $(".tinting").addClass("hidden");
+  });
+  $("#logoutButton").click(function () {
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userName: userLogin, authorized: false })
+    );
+    $("#homePage").detach();
+    loginPage.appendTo("main");
   });
 
   $("#clearSearchFormInput")
@@ -159,10 +181,3 @@ if (authorized) {
   loginPage.detach();
   generateHomePage();
 }
-
-$("#submitFormButton").click(function () {
-  if ($("#loginInput").val() !== "" && $("#passwordInput").val() !== "") {
-    loginPage.detach();
-    generateHomePage();
-  }
-});

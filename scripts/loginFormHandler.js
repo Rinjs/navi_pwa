@@ -39,3 +39,17 @@ $("#passwordControl").click(function () {
   }
   return false;
 });
+
+$("#submitFormButton").click(function () {
+  let login = $("#loginInput").val();
+  let password = $("#passwordInput").val();
+  if (login !== "" && password !== "") {
+    userLogin = login;
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({ userName: login, authorized: true })
+    );
+    loginPage.detach();
+    generateHomePage();
+  }
+});
