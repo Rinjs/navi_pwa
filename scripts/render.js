@@ -1,10 +1,12 @@
 let loginPage = $("#loginPage");
-let authorized = JSON.parse(localStorage.getItem("userData")).authorized
-  ? JSON.parse(localStorage.getItem("userData")).authorized
-  : false;
-let userLogin = JSON.parse(localStorage.getItem("userData")).userName
-  ? JSON.parse(localStorage.getItem("userData")).userName
-  : "user";
+const userData = JSON.parse(localStorage.getItem("userData"))
+  ? JSON.parse(localStorage.getItem("userData"))
+  : {
+      userName: "user",
+      authorized: false,
+    };
+let authorized = userData.authorized;
+let userLogin = userData.userName;
 
 const generateHomePage = () => {
   const autoList = [
