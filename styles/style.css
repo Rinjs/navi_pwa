@@ -12,7 +12,7 @@
   outline: none;
 }
 body {
-  font-family: "Oswald", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   line-height: 18px;
   color: #424242;
@@ -21,7 +21,10 @@ button {
   cursor: pointer;
 }
 html,
-body {
+body,
+main,
+.home-page,
+.login-page {
   height: 100%;
   width: 100%;
 }
@@ -40,13 +43,27 @@ a {
 .hidden {
   display: none !important;
 }
+#clearSearchFormInput {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  background: url("../images/app icons/close.svg") 0 0 no-repeat;
+}
+.auto-list__search-icon {
+  position: absolute;
+  left: 15px;
+  top: 11px;
+  opacity: 0.7;
+  width: 15px;
+  height: 15px;
+  background: url("../images/app icons/search.svg") 0 0 no-repeat;
+}
 
 /*Login page*/
-.login-page,
-.login-container {
-  height: 100%;
-}
-.login-container {
+
+.login-page {
   display: grid;
   align-content: center;
   justify-items: center;
@@ -79,7 +96,8 @@ a {
   opacity: 0;
 }
 .login-form__input-container,
-.login-form__password-container {
+.login-form__password-container,
+.auto-list__form-input__container {
   position: relative;
 }
 .login-form__label {
@@ -94,10 +112,10 @@ a {
   top: 0;
   width: 20px;
   height: 20px;
-  background: url("../images/no-view.svg") 0 0 no-repeat;
+  background: url("../images/app icons/no-view.svg") 0 0 no-repeat;
 }
 .login-form__password-control.view {
-  background: url("../images/view.svg") 0 0 no-repeat;
+  background: url("../images/app icons/view.svg") 0 0 no-repeat;
 }
 .login-form__button {
   margin-top: 10px;
@@ -114,5 +132,66 @@ a {
 .login-form__button:active {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   background: linear-gradient(top, hsl(218, 43%, 71%), hsl(203, 42%, 57%) 90%);
-  background: -webkit-linear-gradient(top, hsl(218, 43%, 71%), hsl(203, 42%, 57%) 90%); /* Изменяем значения линейного градиента */
+  background: -webkit-linear-gradient(
+    top,
+    hsl(218, 43%, 71%),
+    hsl(203, 42%, 57%) 90%
+  ); /* Изменяем значения линейного градиента */
+}
+
+/*Home page*/
+
+/*Navigation styles*/
+
+.nav-menu {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 100fr;
+  background-color: #3f83b0;
+  position: sticky;
+  padding: 15px;
+  grid-column-gap: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.nav-menu__text {
+  color: white;
+  font-weight: bold;
+}
+.nav-menu__toggle {
+  position: relative;
+  width: 17px;
+  height: 12px;
+}
+.nav-menu__toggle span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+}
+.nav-menu__toggle span:nth-child(2) {
+  top: 5px;
+}
+.nav-menu__toggle span:nth-child(3) {
+  top: 10px;
+}
+
+/*Auto list section*/
+
+.auto-list__container {
+  padding: 10px;
+}
+.auto-list__form-input {
+  padding: 10px 50px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.auto-list__form-label {
+  position: absolute;
+  top: 9px;
+  left: 50px;
+  color: gray;
 }
