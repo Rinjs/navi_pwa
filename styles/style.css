@@ -22,9 +22,7 @@ button {
 }
 html,
 body,
-main,
-.home-page,
-.login-page {
+main,.login-page {
   height: 100%;
   width: 100%;
 }
@@ -33,6 +31,10 @@ a {
 }
 
 /*Styles for some elements*/
+.home-page{
+  height: auto;
+  width: 100%;
+}
 #addToHomeScreen {
   margin-top: 10px;
   background: none;
@@ -42,6 +44,10 @@ a {
 }
 .hidden {
   display: none !important;
+}
+.show,
+.nav-menu__list-container.show {
+  left: 0;
 }
 #clearSearchFormInput {
   position: absolute;
@@ -59,6 +65,17 @@ a {
   width: 15px;
   height: 15px;
   background: url("../images/app icons/search.svg") 0 0 no-repeat;
+}
+#carStatistics {
+  position: absolute;
+  right: 11px;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+  background: url("../images/app icons/list.svg") 0 0 no-repeat;
+}
+.tinting {
+  background-color: gray;
 }
 
 /*Login page*/
@@ -148,8 +165,10 @@ a {
   align-items: center;
   grid-template-columns: 1fr 100fr;
   background-color: #3f83b0;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   padding: 15px;
+  z-index: 1000;
   grid-column-gap: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
@@ -178,11 +197,31 @@ a {
 .nav-menu__toggle span:nth-child(3) {
   top: 10px;
 }
+.nav-menu__list-container {
+  position: fixed;
+  top: 0;
+  z-index: 2000;
+  background: white;
+  width: 250px;
+  height: 100%;
+  transition: left ease 0.2s;
+  left: -350px;
+}
+.nav-menu__list-text {
+  background-color: #3f83b0;
+  padding: 15px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
 
 /*Auto list section*/
 
 .auto-list__container {
   padding: 10px;
+}
+.auto-list__search-form {
+  margin-top: 48px;
 }
 .auto-list__form-input {
   padding: 10px 50px;
@@ -194,4 +233,17 @@ a {
   top: 9px;
   left: 50px;
   color: gray;
+}
+.auto-list {
+  margin-top: 10px;
+}
+.auto-list__item {
+  position: relative;
+  padding: 10px 50px 10px 0;
+  border-bottom: 1px solid lightgray;
+}
+.auto-address {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
