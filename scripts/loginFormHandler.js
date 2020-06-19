@@ -1,5 +1,93 @@
+const autoList = [
+  {
+    name: "Polo 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 2",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 3",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "SKODA",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "SKODA 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "SKODA 2",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "SKODA 3",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 10",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Auto 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+  {
+    name: "Polo 1",
+    address:
+        "address, address, address, address, address, address, address, address,",
+  },
+];
 let deferredPrompt;
 const addBtn = document.getElementById("addToHomeScreen");
+
 if (addBtn) {
   addBtn.style.display = "none";
 
@@ -44,12 +132,12 @@ $("#submitFormButton").click(function () {
   let login = $("#loginInput").val();
   let password = $("#passwordInput").val();
   if (login !== "" && password !== "") {
-    userLogin = login
+    userLogin = login;
     localStorage.setItem(
       "userData",
       JSON.stringify({ userName: login, authorized: true })
     );
     loginPage.detach();
-    generateHomePage();
+    generateHomePage(autoList);
   }
 });

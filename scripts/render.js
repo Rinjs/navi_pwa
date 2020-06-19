@@ -8,95 +8,13 @@ const userData = JSON.parse(localStorage.getItem("userData"))
 let authorized = userData.authorized;
 let userLogin = userData.userName;
 
-const generateHomePage = () => {
-  const autoList = [
-    {
-      name: "Polo 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 2",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 3",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "SKODA",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "SKODA 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "SKODA 2",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "SKODA 3",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 10",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Auto 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-    {
-      name: "Polo 1",
-      address:
-        "address, address, address, address, address, address, address, address,",
-    },
-  ];
+const generateAutoList = (name, address) => {
+  $("#autoList").append(
+    `<li class="auto-list__item"><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p><i id="carStatistics"></i></li>`
+  );
+};
 
+const generateHomePage = (autoList) => {
   $("main").append(
     "<div class='home-page' id='homePage'>" +
       "<div class='tinting'></div>" +
@@ -161,25 +79,38 @@ const generateHomePage = () => {
       $("#searchFormInput").val("").focus();
       $("#clearSearchFormInput").addClass("hidden");
       $(".auto-list__form-label").removeClass("hidden");
+      $("#autoList").empty();
+      autoList.forEach((auto) => {
+        generateAutoList(auto.name, auto.address);
+      });
     });
 
-  $("#searchFormInput").keyup(function () {
-    if ($(this).val()) {
-      $("#clearSearchFormInput").removeClass("hidden");
-      $(".auto-list__form-label").addClass("hidden");
-    } else {
-      $("#clearSearchFormInput").addClass("hidden");
-      $(".auto-list__form-label").removeClass("hidden");
-    }
-  });
+  $("#searchFormInput")
+    .keyup(function () {
+      if ($(this).val()) {
+        $("#clearSearchFormInput").removeClass("hidden");
+        $(".auto-list__form-label").addClass("hidden");
+      } else {
+        $("#clearSearchFormInput").addClass("hidden");
+        $(".auto-list__form-label").removeClass("hidden");
+      }
+    })
+    .change(function () {
+      $("#autoList").empty();
+      autoList.forEach((auto) => {
+        if (
+          auto.name.toLowerCase().indexOf($(this).val().toLowerCase()) !== -1
+        ) {
+          generateAutoList(auto.name, auto.address);
+        }
+      });
+    });
 
   autoList.forEach((auto) => {
-    $("#autoList").prepend(
-      `<li class="auto-list__item"><h1 class="auto-name">${auto.name}</h1><p class="auto-address">${auto.address}</p><i id="carStatistics"></i></li>`
-    );
+    generateAutoList(auto.name, auto.address);
   });
 };
 if (authorized) {
   loginPage.detach();
-  generateHomePage();
+  generateHomePage(autoList);
 }
