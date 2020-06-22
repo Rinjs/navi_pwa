@@ -27,19 +27,30 @@ main,
   height: 100%;
   width: 100%;
 }
+
 a {
   transition: 0.8s;
 }
 
 /*Styles for some elements*/
-.home-page {
+.home-page,
+.report-page {
   position: relative;
   height: auto;
+  min-height: 100%;
   width: 100%;
 }
 #addToHomeScreen {
   margin-top: 10px;
   background: none;
+}
+#backArrow {
+  position: absolute;
+  top: -2px;
+  width: 15px;
+  height: 15px;
+  background: url("../images/app icons/back-arrow.svg") 0 0 no-repeat;
+  cursor: pointer;
 }
 #addToHomeScreen:hover {
   color: #3f83b0;
@@ -156,7 +167,8 @@ a {
   letter-spacing: 1px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
-.login-form__button:active {
+.login-form__button:active,
+.report-date__form-button:active {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   background: linear-gradient(top, hsl(218, 43%, 71%), hsl(203, 42%, 57%) 90%);
   background: -webkit-linear-gradient(
@@ -176,6 +188,7 @@ a {
   grid-template-columns: 1fr 100fr;
   background-color: #3f83b0;
   position: fixed;
+  top: 0;
   width: 100%;
   padding: 15px;
   z-index: 2000;
@@ -241,18 +254,20 @@ a {
   height: 20px;
   background: url("../images/app icons/home-run.svg") 0 0 no-repeat;
 }
-#logoutButton .nav-menu__item-icon{
+#logoutButton .nav-menu__item-icon {
   background: url("../images/app icons/logout.svg") 0 0 no-repeat;
   left: 16px;
 }
 
 /*Auto list section*/
 
-.auto-list__container {
+.auto-list__container,
+.report-list__container {
   padding: 10px;
 }
-.auto-list__search-form {
-  margin-top: 48px;
+.auto-list__search-form,
+.report-date__form {
+  padding-top: 48px;
 }
 .auto-list__form-input {
   padding: 10px 50px;
@@ -277,4 +292,62 @@ a {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/*Report page*/
+.report-page {
+  background: #ececec;
+}
+.report-date__form {
+  background-color: orange;
+  display: grid;
+  padding-bottom: 10px;
+}
+.report-date__form-input {
+  background: white;
+  width: 100%;
+  text-align: start;
+  padding: 30px 10px 10px 10px;
+}
+.report-date__form-input__container {
+  position: relative;
+}
+.report-date__form .report-list__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+}
+.report-date__form-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  color: gray;
+}
+.report-date__form-button {
+  background: #3f83b0;
+  color: white;
+  font-size: 18px;
+  padding: 15px;
+  width: calc(100% - 20px);
+  border-radius: 4px;
+  justify-self: center;
+}
+.report-list .report-list__container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-row-gap: 20px;
+}
+.report-list__item {
+  border: 1px solid #d0caca;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: white;
+  border-radius: 3px;
+}
+.report-list__item p {
+  padding: 3px 10px;
+}
+.report-list__item-distance {
+  border-left: 1px solid #d0caca;
 }

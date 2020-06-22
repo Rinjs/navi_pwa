@@ -8,12 +8,52 @@ const userData = JSON.parse(localStorage.getItem("userData"))
 let authorized = userData.authorized;
 let userLogin = userData.userName;
 
-const generateAutoList = (name, address) => {
+const generateAutoList = (name, address, id) => {
   $("#autoList").append(
-    `<li class="auto-list__item"><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p><i id="carStatistics"></i></li>`
+    `<li class="auto-list__item" id=${id}><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p><i id="carStatistics"></i></li>`
   );
 };
+const generateReportPage = (autoName) => {
+  $("#homePage").detach();
 
+  $("main").append(
+    "<div class='report-page' id='reportPage'>" +
+      "<div class='nav-menu' id='navMenu'>" +
+      "<div class='nav-menu__toggle'>" +
+      "<i id='backArrow'></i>" +
+      "</div>" +
+      `<p class='nav-menu__text' >Отчет ${autoName}</p>` +
+      "</div>" +
+      "<form class='report-date__form'>" +
+      "<div class='report-list__container'>" +
+      "<div class='report-date__form-input__container'>" +
+      "<input type='button' class='report-date__form-input' id='fromFormInput'>" +
+      "<label for='fromFormInput' class='report-date__form-label'>C</label>" +
+      "</div>" +
+      "<div class='report-date__form-input__container'>" +
+      "<input type='button' class='report-date__form-input' id='toFormInput'>" +
+      "<label for='toFormInput' class='report-date__form-label'>По</label>" +
+      "</div>" +
+      "</div>" +
+      "<button type='button' class='report-date__form-button' id='generateReport'>СФОРМИРОВАТЬ</button>" +
+      "</form>" +
+      "<ul class='report-list' id='reportList'>" +
+      "<div class='report-list__container'>" +
+      "<li class='report-list__item' id='lastReportItem'>" +
+      "<p class='report-list__item-text'>Пробег итого</p>" +
+      "<p class='report-list__item-distance'>0 км</p>" +
+      "</li>" +
+      "</div>" +
+      "</ul>" +
+      "</div>"
+  );
+
+  $("#backArrow").click(function () {
+    $("#reportPage").detach();
+    generateHomePage(autoList);
+  });
+  $("#fromFormInput, #toFormInput").val("sd");
+};
 const generateHomePage = (autoList) => {
   $("main").append(
     "<div class='home-page' id='homePage'>" +
@@ -81,7 +121,7 @@ const generateHomePage = (autoList) => {
       $(".auto-list__form-label").removeClass("hidden");
       $("#autoList").empty();
       autoList.forEach((auto) => {
-        generateAutoList(auto.name, auto.address);
+        generateAutoList(auto.name, auto.address, auto.id);
       });
     });
 
@@ -101,13 +141,17 @@ const generateHomePage = (autoList) => {
         if (
           auto.name.toLowerCase().indexOf($(this).val().toLowerCase()) !== -1
         ) {
-          generateAutoList(auto.name, auto.address);
+          generateAutoList(auto.name, auto.address, auto.id);
         }
       });
     });
 
   autoList.forEach((auto) => {
-    generateAutoList(auto.name, auto.address);
+    generateAutoList(auto.name, auto.address, auto.id);
+  });
+
+  $(".auto-list__item #carStatistics").click(function () {
+    generateReportPage($(this).parent().find($(".auto-name")).text());
   });
 };
 if (authorized) {
