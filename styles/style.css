@@ -307,6 +307,7 @@ a {
   background: white;
   width: 100%;
   text-align: start;
+  font-weight: bold;
   padding: 30px 10px 10px 10px;
 }
 .report-date__form-input__container {
@@ -339,11 +340,18 @@ a {
   grid-row-gap: 20px;
 }
 .report-list__item {
+  position: relative;
   border: 1px solid #d0caca;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   background: white;
   border-radius: 3px;
+}
+.report-list__item-date {
+  position: absolute;
+  top: -21px;
+  color: #403d3d;
+  font-size: 13px;
 }
 .report-list__item p {
   padding: 3px 10px;

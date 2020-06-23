@@ -1,4 +1,5 @@
 let loginPage = $("#loginPage");
+let AllDistance = 0.0;
 const userData = JSON.parse(localStorage.getItem("userData"))
   ? JSON.parse(localStorage.getItem("userData"))
   : {
@@ -13,7 +14,16 @@ const generateAutoList = (name, address, id) => {
     `<li class="auto-list__item" id=${id}><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p><i id="carStatistics"></i></li>`
   );
 };
+const generateReportList = (date, distance = 0.01) => {
+  AllDistance += distance;
+  $("#reportList .report-list__container").append(
+    `<li class='report-list__item'><p class="report-list__item-date">${date}</p><p class='report-list__item-text'>Пробег</p><p class='report-list__item-distance'>${distance} км</p></li>`
+  );
+};
 const generateReportPage = (autoName) => {
+  let dateFormat = "d M. yy";
+  let dateList = [];
+
   $("#homePage").detach();
 
   $("main").append(
@@ -39,10 +49,6 @@ const generateReportPage = (autoName) => {
       "</form>" +
       "<ul class='report-list' id='reportList'>" +
       "<div class='report-list__container'>" +
-      "<li class='report-list__item' id='lastReportItem'>" +
-      "<p class='report-list__item-text'>Пробег итого</p>" +
-      "<p class='report-list__item-distance'>0 км</p>" +
-      "</li>" +
       "</div>" +
       "</ul>" +
       "</div>"
@@ -53,29 +59,72 @@ const generateReportPage = (autoName) => {
     generateHomePage(autoList);
   });
 
-  $(function () {
-    var dateFormat = "d M. yy",
-      from = $("#fromFormInput")
-        .datepicker({ dateFormat: "d M. yy" }).datepicker("setDate", new Date().getDay() - 7)
-        .on("change", function () {
-          to.datepicker("option", "minDate", getDate(this));
-        }),
-      to = $("#toFormInput")
-        .datepicker({ dateFormat: "d M. yy" }).datepicker("setDate", new Date())
-        .on("change", function () {
-          from.datepicker("option", "maxDate", getDate(this));
-        });
+  let fromDate = $("#fromFormInput")
+    .datepicker({ dateFormat: "d M. yy", maxDate: new Date() })
+    .datepicker("setDate", new Date().getDay() - 7)
+    .change(function () {
+      $("#toFormInput").datepicker("option", "minDate", getDate(this));
+    })
+    .datepicker("getDate");
+  let toDate = $("#toFormInput")
+    .datepicker({
+      dateFormat: "d M. yy",
+      minDate: new Date().getDay() - 7,
+    })
+    .datepicker("setDate", new Date())
+    .change(function () {
+      $("#fromFormInput").datepicker("option", "maxDate", getDate(this));
+    })
+    .datepicker("getDate");
 
-    function getDate(element) {
-      var date;
-      try {
-        date = $.datepicker.parseDate(dateFormat, element.value);
-      } catch (error) {
-        date = null;
-      }
-
-      return date;
+  function getDate(element) {
+    let date;
+    try {
+      date = $.datepicker.parseDate(dateFormat, element.value);
+    } catch (error) {
+      date = null;
     }
+
+    return date;
+  }
+
+  for (let d = new Date(fromDate); d <= toDate; d.setDate(d.getDate() + 1)) {
+    dateList.push($.datepicker.formatDate("d M. yy", d));
+  }
+  $("#reportList .report-list__container")
+    .empty()
+    .append(
+      "<li class='report-list__item' id='firstReportItem'><p class='report-list__item-text'>Общий пробег</p><p class='report-list__item-distance'>0.00 км</p></li>"
+    );
+
+  dateList.forEach((date) => generateReportList(date));
+
+  $("#firstReportItem .report-list__item-distance").text(
+    `${AllDistance.toFixed(2)} км`
+  );
+
+  $("#generateReport").click(function () {
+    let fromDate = $("#fromFormInput").datepicker("getDate");
+    let toDate = $("#toFormInput").datepicker("getDate");
+    dateList = [];
+    AllDistance = 0.0;
+
+    for (let d = new Date(fromDate); d <= toDate; d.setDate(d.getDate() + 1)) {
+      dateList.push($.datepicker.formatDate("d M. yy", d));
+    }
+    AllDistance = 0.0;
+
+    $("#reportList .report-list__container")
+      .empty()
+      .append(
+        "<li class='report-list__item' id='firstReportItem'><p class='report-list__item-text'>Общий пробег</p><p class='report-list__item-distance'>0.00 км</p></li>"
+      );
+
+    dateList.forEach((date) => generateReportList(date));
+
+    $("#firstReportItem .report-list__item-distance").text(
+      `${AllDistance.toFixed(2)} км`
+    );
   });
 };
 const generateHomePage = (autoList) => {
