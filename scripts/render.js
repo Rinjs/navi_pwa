@@ -52,7 +52,31 @@ const generateReportPage = (autoName) => {
     $("#reportPage").detach();
     generateHomePage(autoList);
   });
-  $("#fromFormInput, #toFormInput").val("sd");
+
+  $(function () {
+    var dateFormat = "d M. yy",
+      from = $("#fromFormInput")
+        .datepicker({ dateFormat: "d M. yy" }).datepicker("setDate", new Date().getDay() - 7)
+        .on("change", function () {
+          to.datepicker("option", "minDate", getDate(this));
+        }),
+      to = $("#toFormInput")
+        .datepicker({ dateFormat: "d M. yy" }).datepicker("setDate", new Date())
+        .on("change", function () {
+          from.datepicker("option", "maxDate", getDate(this));
+        });
+
+    function getDate(element) {
+      var date;
+      try {
+        date = $.datepicker.parseDate(dateFormat, element.value);
+      } catch (error) {
+        date = null;
+      }
+
+      return date;
+    }
+  });
 };
 const generateHomePage = (autoList) => {
   $("main").append(
