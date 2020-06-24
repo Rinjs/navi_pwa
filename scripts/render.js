@@ -11,7 +11,7 @@ let userLogin = userData.userName;
 
 const generateAutoList = (name, address, id) => {
   $("#autoList").append(
-    `<li class="auto-list__item" id=${id}><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p><i id="carStatistics"></i></li>`
+    `<li class="auto-list__item" id=${id}><div class="auto-list__item-container"><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p></div><i id="carStatistics"></i></li>`
   );
 };
 const generateReportList = (date, distance = 0.01) => {
@@ -19,6 +19,46 @@ const generateReportList = (date, distance = 0.01) => {
   $("#reportList .report-list__container").append(
     `<li class='report-list__item'><p class="report-list__item-date">${date}</p><p class='report-list__item-text'>Пробег</p><p class='report-list__item-distance'>${distance} км</p></li>`
   );
+};
+const generateTrackingPage = (name, address, id) => {
+  $("#homePage").detach();
+
+  $("main").append(
+    "<div class='tracking-page' id='trackingPage'>" +
+      "<div class='nav-menu' id='navMenu'>" +
+      "<div class='nav-menu__toggle'>" +
+      "<i id='backArrow'></i>" +
+      "</div>" +
+      "<p class='nav-menu__text' >Слежение</p>" +
+      "</div>" +
+      "<div class='tracking-map'></div>" +
+      "<div class='tracking-menu'>" +
+      "<div class='tracking-menu__item active' id='trackingInfo'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>Инфо</p></div></div>" +
+      "<div class='tracking-menu__item' id='trackingHistory'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>История</p></div></div>" +
+      "<div class='tracking-menu__item' id='trackingTasks'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>Задачи</p></div></div>" +
+      "</div>" +
+      "<div class='tracking-sections'>" +
+      "<div class='tracking-info'>" +
+      `<div class='tracking-info_auto'><h1 class='auto-name'>${name}</h1><p class='auto-address'>${address}</p></div>` +
+      "<ul class='tracking-info_list'>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Скорость</p><p id='trackingSpeed'>0 км/ч</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Пробег</p><p id='trackingMileage'>0.00 км</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Напряжение аккумулятора</p><p id='trackingBatteryVoltage'>0.00 В</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Широта</p><p id='trackingLatitude'>0 °</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Долгота</p><p id='trackingLongitude'>0 °</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Направление движения</p><p id='trackingTravelDirection'>0 °</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Высота над уровнем моря</p><p id='trackingHeightAboveSeaLevel'>0 м</p></li>" +
+      "<li class='tracking-info_list-item'><p class='tracking-item__value'>Время обновления</p><p id='trackingUpdateTime'>00:00:00</p></li>" +
+      "</ul>" +
+      "</div>" +
+      "</div>" +
+      "</div>"
+  );
+
+  $("#backArrow").click(function () {
+    $("#trackingPage").detach();
+    generateHomePage(autoList);
+  });
 };
 const generateReportPage = (autoName) => {
   let dateFormat = "d M. yy";
@@ -225,6 +265,14 @@ const generateHomePage = (autoList) => {
 
   $(".auto-list__item #carStatistics").click(function () {
     generateReportPage($(this).parent().find($(".auto-name")).text());
+  });
+
+  $(".auto-list__item-container").click(function () {
+    generateTrackingPage(
+      $(this).parent().find($(".auto-name")).text(),
+      $(this).parent().find($(".auto-address")).text(),
+      $(this).parent().attr("id")
+    );
   });
 };
 if (authorized) {
