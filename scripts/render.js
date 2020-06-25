@@ -38,7 +38,7 @@ const generateTrackingPage = (name, address, id) => {
       "<div class='tracking-menu__item' id='trackingTasks'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>Задачи</p></div></div>" +
       "</div>" +
       "<div class='tracking-sections'>" +
-      "<div class='tracking-info'>" +
+      "<div class='tracking-info active-section tracking-section trackingInfo'>" +
       `<div class='tracking-info_auto'><h1 class='auto-name'>${name}</h1><p class='auto-address'>${address}</p></div>` +
       "<ul class='tracking-info_list'>" +
       "<li class='tracking-info_list-item'><p class='tracking-item__value'>Скорость</p><p id='trackingSpeed'>0 км/ч</p></li>" +
@@ -51,6 +51,22 @@ const generateTrackingPage = (name, address, id) => {
       "<li class='tracking-info_list-item'><p class='tracking-item__value'>Время обновления</p><p id='trackingUpdateTime'>00:00:00</p></li>" +
       "</ul>" +
       "</div>" +
+      "<div class='tracking-history tracking-section trackingHistory'>" +
+      "<form class='tracking-date__form'>" +
+      "<div class='tracking-date__form-input__container'>" +
+      "<input type='button' class='tracking-date__form-input' id='trackingHistoryDateInput'>" +
+      "<label for='trackingHistoryDateInput' class='tracking-date__form-icon'></label>" +
+      "</div>" +
+      "</form>" +
+      "</div>" +
+      "<div class='tracking-tasks tracking-section trackingTasks'>" +
+      "<form class='tracking-date__form'>" +
+      "<div class='tracking-date__form-input__container'>" +
+      "<input type='button' class='tracking-date__form-input' id='trackingTaskDateInput'>" +
+      "<label for='trackingTaskDateInput' class='tracking-date__form-icon'></label>" +
+      "</div>" +
+      "</form>" +
+      "</div>" +
       "</div>" +
       "</div>"
   );
@@ -59,6 +75,17 @@ const generateTrackingPage = (name, address, id) => {
     $("#trackingPage").detach();
     generateHomePage(autoList);
   });
+
+  $(".tracking-menu__item").click(function () {
+    $(".tracking-menu__item").removeClass("active");
+    $(`#${$(this).attr("id")}`).addClass("active");
+    $(".tracking-section").removeClass("active-section");
+    $(`.${$(this).attr("id")}`).addClass("active-section");
+  });
+
+  $("#trackingHistoryDateInput, #trackingTaskDateInput")
+    .datepicker({ dateFormat: "d M. yy г." })
+    .datepicker("setDate", new Date());
 };
 const generateReportPage = (autoName) => {
   let dateFormat = "d M. yy";
@@ -100,15 +127,15 @@ const generateReportPage = (autoName) => {
   });
 
   let fromDate = $("#fromFormInput")
-    .datepicker({ dateFormat: "d M. yy", maxDate: new Date() })
-    .datepicker("setDate", new Date().getDay() - 7)
+    .datepicker({ dateFormat: "d M. yy г.", maxDate: new Date() })
+    .datepicker("setDate", -7)
     .change(function () {
       $("#toFormInput").datepicker("option", "minDate", getDate(this));
     })
     .datepicker("getDate");
   let toDate = $("#toFormInput")
     .datepicker({
-      dateFormat: "d M. yy",
+      dateFormat: "d M. yy г.",
       minDate: new Date().getDay() - 7,
     })
     .datepicker("setDate", new Date())
@@ -129,7 +156,7 @@ const generateReportPage = (autoName) => {
   }
 
   for (let d = new Date(fromDate); d <= toDate; d.setDate(d.getDate() + 1)) {
-    dateList.push($.datepicker.formatDate("d M. yy", d));
+    dateList.push($.datepicker.formatDate("d M. yy г.", d));
   }
   $("#reportList .report-list__container")
     .empty()

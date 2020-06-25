@@ -392,15 +392,19 @@ a {
   width: 100%;
   cursor: pointer;
 }
-.tracking-menu__item-container {
+.tracking-menu__item-container,
+.tracking-date__form-input__container {
   position: relative;
   display: inline-block;
+}
+.tracking-menu__text {
+  margin-left: 10px;
 }
 #trackingInfo .tracking-menu__icon,
 #trackingHistory .tracking-menu__icon,
 #trackingTasks .tracking-menu__icon {
   position: absolute;
-  left: -25px;
+  left: -15px;
   width: 20px;
   height: 20px;
   background: url("../images/app icons/car.svg") 0 0 no-repeat;
@@ -411,9 +415,15 @@ a {
 #trackingHistory .tracking-menu__icon {
   background: url("../images/app icons/clock.svg") 0 0 no-repeat;
 }
+.tracking-section {
+  display: none;
+}
 .active {
   color: #3f83b0;
   border-color: #3f83b0;
+}
+.active-section {
+  display: block;
 }
 .tracking-sections {
   overflow: auto;
@@ -429,9 +439,25 @@ a {
   grid-template-areas: ". .";
   justify-content: space-between;
 }
-.tracking-info_list-item p{
+.tracking-info_list-item p {
   padding: 0 10px;
 }
 .tracking-item__value {
   color: #3f83b0;
+}
+.tracking-date__form-input {
+  background: transparent;
+}
+.tracking-date__form {
+  padding: 5px 0;
+  border-bottom: 1px solid lightgray;
+  text-align: center;
+}
+.tracking-date__form-icon {
+  position: absolute;
+  top: 1px;
+  left: -20px;
+  width: 15px;
+  height: 15px;
+  background: url("../images/app icons/calendar.svg") 0 0 no-repeat;
 }
