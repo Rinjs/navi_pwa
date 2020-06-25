@@ -9,6 +9,15 @@ const userData = JSON.parse(localStorage.getItem("userData"))
 let authorized = userData.authorized;
 let userLogin = userData.userName;
 
+const generateActionList = (time, typeOfAction, actionData) => {
+  $("#actionList").append(
+    `<li class="tracking-history__action-item" id=${typeOfAction}><p class="tracking-history__action-time">${time}</p><div class="tracking-history__action-container"><i class="tracking-history__data-icon action-icon"></i></div>${
+      typeOfAction === "parkingTime"
+        ? `<p class="parking-address">${actionData}</p>`
+        : `<div class='tracking-history__action-delivery'><p>${actionData.time}<sub>мин.</sub></p><p>${actionData.distance}<sub>км.</sub></p></div>`
+    }</li>`
+  );
+};
 const generateAutoList = (name, address, id) => {
   $("#autoList").append(
     `<li class="auto-list__item" id=${id}><div class="auto-list__item-container"><h1 class="auto-name">${name}</h1><p class="auto-address">${address}</p></div><i id="carStatistics"></i></li>`
@@ -58,6 +67,12 @@ const generateTrackingPage = (name, address, id) => {
       "<label for='trackingHistoryDateInput' class='tracking-date__form-icon'></label>" +
       "</div>" +
       "</form>" +
+      "<div class='tracking-history__data-list'>" +
+      "<div class='tracking-history__data-item' id='moveTime'><i class='tracking-history__data-icon'></i><p class='tracking-history__data-text'>0ч. 0мин.</p></div>" +
+      "<div class='tracking-history__data-item' id='traveledDistance'><i class='tracking-history__data-icon'></i><p class='tracking-history__data-text'>0км.</p></div>" +
+      "<div class='tracking-history__data-item' id='parkingTime'><i class='tracking-history__data-icon'></i><p class='tracking-history__data-text'>0ч. 0мин.</p></div>" +
+      "</div>" +
+      "<ul class='tracking-history__action-list' id='actionList'></ul>" +
       "</div>" +
       "<div class='tracking-tasks tracking-section trackingTasks'>" +
       "<form class='tracking-date__form'>" +
@@ -83,9 +98,45 @@ const generateTrackingPage = (name, address, id) => {
     $(`.${$(this).attr("id")}`).addClass("active-section");
   });
 
+  const updateDataList = (actionList) => {
+    let allTravelDistance = 0.0;
+    let allParkingTime = { hours: 0, minute: 0 };
+    let allDeliveryTime = { hours: 0, minute: 0 };
+
+    actionList.forEach((action) => {
+      if (action.action === "moveTime") {
+        allTravelDistance += action.data.distance;
+        allDeliveryTime.minute += action.data.time;
+      }
+
+      generateActionList(action.time, action.action, action.data);
+    });
+
+    allDeliveryTime.hours = Math.trunc(allDeliveryTime.minute / 60);
+    allParkingTime.hours = new Date().getHours() - allDeliveryTime.hours;
+    allParkingTime.minute = new Date().getMinutes() - allDeliveryTime.minute;
+
+    $("#traveledDistance .tracking-history__data-text").text(
+      `${allTravelDistance.toFixed(2)} км.`
+    );
+    $("#moveTime .tracking-history__data-text").text(
+      `${allDeliveryTime.hours}ч. ${allDeliveryTime.minute}мин.`
+    );
+    $("#parkingTime .tracking-history__data-text").text(
+      `${allParkingTime.hours}ч. ${allParkingTime.minute}мин.`
+    );
+  };
+
+  updateDataList(actionList);
+
   $("#trackingHistoryDateInput, #trackingTaskDateInput")
     .datepicker({ dateFormat: "d M. yy г." })
-    .datepicker("setDate", new Date());
+    .datepicker("setDate", new Date())
+    .change(function () {
+      $("#actionList").empty();
+
+      updateDataList(actionListChanged);
+    });
 };
 const generateReportPage = (autoName) => {
   let dateFormat = "d M. yy";

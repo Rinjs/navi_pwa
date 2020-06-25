@@ -288,7 +288,7 @@ a {
   padding-right: 50px;
   border-bottom: 1px solid lightgray;
 }
-.auto-address {
+.auto-address{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -382,7 +382,7 @@ a {
 }
 .tracking-menu {
   display: grid;
-  grid-template-areas: ". . .";
+  grid-template-columns: repeat(3, 1fr);
   text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
@@ -427,7 +427,7 @@ a {
 }
 .tracking-sections {
   overflow: auto;
-  height: 50%;
+  height: calc(50% - 50px);
 }
 .tracking-info_auto {
   padding: 10px;
@@ -460,4 +460,57 @@ a {
   width: 15px;
   height: 15px;
   background: url("../images/app icons/calendar.svg") 0 0 no-repeat;
+}
+.tracking-history__data-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  grid-column-gap: 1px;
+}
+.tracking-history__data-item {
+  position: relative;
+  background: #003eff;
+  color: white;
+  padding: 8px 0;
+}
+#moveTime .tracking-history__data-icon,
+#traveledDistance .tracking-history__data-icon,
+#parkingTime .tracking-history__data-icon {
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background: url("../images/app icons/delivery.svg") 0 0 no-repeat;
+}
+#traveledDistance .tracking-history__data-icon {
+  background: url("../images/app icons/road.svg") 0 0 no-repeat;
+}
+#parkingTime .tracking-history__data-icon {
+  background: url("../images/app icons/parking.svg") 0 0 no-repeat;
+}
+.tracking-history__data-text {
+  margin-left: 20px;
+}
+#traveledDistance .tracking-history__data-text {
+  margin-left: 10px;
+}
+.tracking-history__action-container {
+  position: relative;
+}
+.tracking-history__action-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr;
+  align-items: center;
+  padding: 10px;
+}
+.tracking-history__action-list #moveTime {
+  background: #d3fbd3;
+}
+.tracking-history__action-delivery {
+  display: grid;
+  grid-template-areas: ". .";
+  justify-content: space-between;
+}
+.action-icon {
+  top: -9px;
 }

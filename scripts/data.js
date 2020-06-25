@@ -78,18 +78,55 @@ const autoList = [
     id: "09034",
   },
 ];
-const reportList = [
-  "1",
-  "3",
-  "124",
-  "1213213",
-  "1213123",
-  "121321",
-  "121321",
-  "14124",
-  "121312321",
-  "124141",
-  "343643",
-  "10965",
-  "09034",
+const actionList = [
+  {
+    time: "00:00",
+    action: "parkingTime",
+    data:
+      "address, address, address, address, address, address, address, address",
+  },
+  {
+    time: "00:20",
+    action: "moveTime",
+    data: {
+      time: 2,
+      distance: 1.21,
+    },
+  },
+  {
+    time: "00:22",
+    action: "parkingTime",
+    data:
+      "address, address, address, address, address, address, address, address",
+  },
+  {
+    time: "00:22",
+    action: "moveTime",
+    data: {
+      time: 30,
+      distance: 30.21,
+    },
+  },
+  {
+    time: "00:52",
+    action: "parkingTime",
+    data:
+      "address, address, address, address, address, address, address, address",
+  },
+];
+const actionListChanged = [
+  {
+    time: "00:00",
+    action: "parkingTime",
+    data:
+      "address, address, address, address, address, address, address, address",
+  },
+  {
+    time: "00:10",
+    action: "moveTime",
+    data: {
+      time: 2,
+      distance: 3.21,
+    },
+  },
 ];
