@@ -113,8 +113,13 @@ const generateTrackingPage = (name, address, id) => {
     });
 
     allDeliveryTime.hours = Math.trunc(allDeliveryTime.minute / 60);
-    allParkingTime.hours = new Date().getHours() - allDeliveryTime.hours;
-    allParkingTime.minute = new Date().getMinutes() - allDeliveryTime.minute;
+    allParkingTime.minute =
+      new Date().getMinutes() +
+      new Date().getHours() * 60 -
+      allDeliveryTime.minute;
+    allDeliveryTime.minute -= allDeliveryTime.hours * 60;
+    allParkingTime.hours = Math.trunc(allParkingTime.minute / 60);
+    allParkingTime.minute -= Math.trunc(allParkingTime.minute / 60) * 60;
 
     $("#traveledDistance .tracking-history__data-text").text(
       `${allTravelDistance.toFixed(2)} км.`

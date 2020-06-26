@@ -103,7 +103,7 @@ const actionList = [
     time: "00:22",
     action: "moveTime",
     data: {
-      time: 30,
+      time: 169,
       distance: 30.21,
     },
   },
