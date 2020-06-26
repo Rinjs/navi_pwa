@@ -40,7 +40,7 @@ const generateTrackingPage = (name, address, id) => {
       "</div>" +
       "<p class='nav-menu__text' >Слежение</p>" +
       "</div>" +
-      "<div class='tracking-map'></div>" +
+      "<div class='tracking-map' id='trackingMap'></div>" +
       "<div class='tracking-menu'>" +
       "<div class='tracking-menu__item active' id='trackingInfo'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>Инфо</p></div></div>" +
       "<div class='tracking-menu__item' id='trackingHistory'><div class='tracking-menu__item-container'><i class='tracking-menu__icon'></i><p class='tracking-menu__text'>История</p></div></div>" +
@@ -85,6 +85,27 @@ const generateTrackingPage = (name, address, id) => {
       "</div>" +
       "</div>"
   );
+
+  function initialize() {
+    var initPoint = new google.maps.LatLng(-34.397, 150.644);
+    var mapOptions = {
+      zoom: 8,
+      center: initPoint,
+      mapTypeControl: true,
+      streetViewControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER,
+      },
+    };
+
+    map = new google.maps.Map(
+      document.getElementById("trackingMap"),
+      mapOptions
+    );
+  }
+
+  initialize();
 
   $("#backArrow").click(function () {
     $("#trackingPage").detach();

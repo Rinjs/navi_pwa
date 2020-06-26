@@ -288,7 +288,7 @@ a {
   padding-right: 50px;
   border-bottom: 1px solid lightgray;
 }
-.auto-address{
+.auto-address {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -376,9 +376,12 @@ a {
   height: 100vh;
 }
 .tracking-map {
-  background: black;
   height: 50%;
   width: 100%;
+}
+.gmnoprint,
+.gm-fullscreen-control {
+  display: none;
 }
 .tracking-menu {
   display: grid;
